@@ -890,9 +890,9 @@ button:disabled {
   place-items: end center;
   min-height: 460px;
   background:
-    radial-gradient(circle at 52% 42%, rgba(0, 212, 61, 0.24), transparent 38%),
-    radial-gradient(circle at 48% 70%, rgba(184, 255, 77, 0.11), transparent 28%);
-  overflow: visible;
+    radial-gradient(circle at 52% 45%, rgba(0, 212, 61, 0.18), transparent 34%),
+    radial-gradient(circle at 48% 72%, rgba(184, 255, 77, 0.08), transparent 26%);
+  overflow: hidden;
 }
 
 .render-slot::before {
@@ -900,8 +900,9 @@ button:disabled {
   position: absolute;
   inset: 22% 12% 8%;
   border-radius: 999px;
-  background: rgba(0, 212, 61, 0.2);
-  filter: blur(48px);
+  background: rgba(0, 212, 61, 0.13);
+  filter: blur(30px);
+  opacity: 0.85;
 }
 
 .hero-render {
@@ -910,11 +911,11 @@ button:disabled {
   width: min(270px, 74%);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 30px 70px rgba(0, 212, 61, 0.34));
+  filter: drop-shadow(0 18px 36px rgba(0, 212, 61, 0.22));
 }
 
 .intba-render {
-  width: min(430px, 92%);
+  width: min(400px, 88%);
 }
 
 @keyframes particle-fall {
@@ -1079,7 +1080,7 @@ code {
   }
 
   .hero-render {
-    width: min(220px, 70%);
+    width: min(220px, 68%);
   }
 
   .app-frame {
