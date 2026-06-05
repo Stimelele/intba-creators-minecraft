@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const discordUrl = "https://discord.gg/distanttorch";
 
@@ -20,6 +20,7 @@ const backgroundParticles = Array.from({ length: 38 }, (_, index) => {
 const copy = {
   en: {
     navFeatures: "Features",
+    navPlugins: "Our Plugins",
     navCommunity: "Community",
     navDiscord: "Discord",
     eyebrow: "Minecraft creators community",
@@ -38,6 +39,16 @@ const copy = {
       "Build a focused creator space instead of another random general Minecraft chat."
     ],
     communityTitle: "Creator paths",
+    pluginsKicker: "our plugins",
+    pluginsTitle: "Creator plugins",
+    pluginsDesc: "First public plugin slot from the INTBA CREATORS community.",
+    pluginName: "Cigarettes",
+    pluginOwnerLabel: "Owner",
+    pluginDescription: "A Minecraft plugin focused on cigarette-themed gameplay mechanics. The public download slot is prepared for the upcoming jar release.",
+    pluginTags: ["Minecraft plugin", "Paper / Spigot", "Community release"],
+    pluginDownload: "Download plugin",
+    pluginPending: "Waiting for papierosy.jar",
+    pluginUploadHint: "Upload the jar as public/plugins/papierosy.jar and redeploy to enable this button.",
     paths: [
       "Plugin development",
       "Server systems",
@@ -51,6 +62,7 @@ const copy = {
   },
   pl: {
     navFeatures: "Funkcje",
+    navPlugins: "Our Plugins",
     navCommunity: "Spolecznosc",
     navDiscord: "Discord",
     eyebrow: "Spolecznosc tworcow Minecraft",
@@ -69,6 +81,16 @@ const copy = {
       "Buduj skupione miejsce dla creatorow, a nie kolejny losowy chat o wszystkim."
     ],
     communityTitle: "Sciezki creatorow",
+    pluginsKicker: "our plugins",
+    pluginsTitle: "Pluginy creatorow",
+    pluginsDesc: "Pierwszy publiczny slot pluginu ze spolecznosci INTBA CREATORS.",
+    pluginName: "Papierosy",
+    pluginOwnerLabel: "Wlasciciel",
+    pluginDescription: "Plugin Minecraft skupiony na mechanikach zwiazanych z papierosami. Publiczny slot pobierania jest juz przygotowany pod nadchodzacy plik jar.",
+    pluginTags: ["Plugin Minecraft", "Paper / Spigot", "Community release"],
+    pluginDownload: "Pobierz plugin",
+    pluginPending: "Oczekuje na papierosy.jar",
+    pluginUploadHint: "Wrzuc jar jako public/plugins/papierosy.jar i zrob redeploy, aby wlaczyc ten przycisk.",
     paths: [
       "Tworzenie pluginow",
       "Systemy serwerowe",
@@ -84,7 +106,15 @@ const copy = {
 
 export default function HomePage() {
   const [lang, setLang] = useState("en");
+  const [pluginReady, setPluginReady] = useState(false);
   const t = copy[lang];
+  const pluginLogo = lang === "pl" ? "/plugins/papierosy.png" : "/plugins/cigarettes.png";
+
+  useEffect(() => {
+    fetch("/plugins/papierosy.jar", { method: "HEAD" })
+      .then((response) => setPluginReady(response.ok))
+      .catch(() => setPluginReady(false));
+  }, []);
 
   return (
     <main className="landing-shell intba-landing">
@@ -110,6 +140,7 @@ export default function HomePage() {
         </a>
         <div className="landing-links">
           <a href="#features">{t.navFeatures}</a>
+          <a href="#plugins">{t.navPlugins}</a>
           <a href="#community">{t.navCommunity}</a>
           <a href={discordUrl}>{t.navDiscord}</a>
           <button className="language-button" type="button" onClick={() => setLang(lang === "en" ? "pl" : "en")}>
@@ -157,6 +188,55 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="landing-card plugins-card" id="plugins">
+        <div className="section-heading-row">
+          <div>
+            <p className="section-kicker">{t.pluginsKicker}</p>
+            <h2>{t.pluginsTitle}</h2>
+          </div>
+          <p>{t.pluginsDesc}</p>
+        </div>
+
+        <article className="plugin-showcase">
+          <div className="plugin-logo-frame">
+            <img src={pluginLogo} alt={t.pluginName} />
+          </div>
+          <div className="plugin-content">
+            <div className="plugin-title-row">
+              <div>
+                <span className="plugin-label">INTBA plugin</span>
+                <h3>{t.pluginName}</h3>
+              </div>
+              <div className="plugin-owner">
+                <img src="https://mc-heads.net/avatar/Bagwolish/64" alt="Bagwolish Minecraft head" />
+                <div>
+                  <span>{t.pluginOwnerLabel}</span>
+                  <strong>Bagwolish</strong>
+                </div>
+              </div>
+            </div>
+            <p>{t.pluginDescription}</p>
+            <div className="plugin-tags">
+              {t.pluginTags.map((tag) => (
+                <span key={tag}>{tag}</span>
+              ))}
+            </div>
+            <div className="plugin-actions">
+              {pluginReady ? (
+                <a className="primary-button" href="/plugins/papierosy.jar" download>
+                  {t.pluginDownload}
+                </a>
+              ) : (
+                <span className="secondary-button disabled-link" aria-disabled="true">
+                  {t.pluginPending}
+                </span>
+              )}
+              <small>{t.pluginUploadHint}</small>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section className="landing-card community-card" id="community">
