@@ -9,6 +9,7 @@ Zawartosc:
 - `public/brand/intba-creators-render.png` - render postaci przyciety pod hero.
 - `public/plugins/papierosy.png` - logo pluginu Papierosy.
 - `public/plugins/cigarettes.png` - logo pluginu Cigarettes.
+- `public/plugins/distant-torch-logo.png` - logo pluginu Distant Torch.
 - `public/flags` - flagi jezykow.
 
 Sciezki assetow w `page.jsx` sa takie same jak w aplikacji Next.js, czyli np. `/brand/intba-creators-logo.png`.
